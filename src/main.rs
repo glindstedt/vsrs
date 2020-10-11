@@ -1,18 +1,12 @@
 use std::collections::HashMap;
-use std::path::{Path, PathBuf};
-use std::fs::{
-    File,
-    read_to_string,
-    read,
-};
+use std::fs::{read, read_to_string, File};
 use std::io::BufWriter;
+use std::path::{Path, PathBuf};
 
 use anyhow::Context;
 use clap::{App, Arg, ArgMatches, SubCommand};
-use korg_syro::{
-    SyroStream
-};
-use log::{info, debug};
+use korg_syro::SyroStream;
+use log::{debug, info};
 use ron::de::from_str;
 use serde::Deserialize;
 use simple_logger::SimpleLogger;
@@ -32,9 +26,9 @@ enum SampleAction {
 
 #[derive(Debug, Deserialize)]
 struct VolcaSample {
-    // Default compression to appply for all
+    // Default compression to apply for all
     default_compression: Option<u32>,
-    samples: HashMap<u32, SampleAction>
+    samples: HashMap<u32, SampleAction>,
 }
 
 fn get_ron_data(file_name: &str) -> anyhow::Result<VolcaSample> {
@@ -47,10 +41,8 @@ fn get_ron_data(file_name: &str) -> anyhow::Result<VolcaSample> {
 }
 
 fn read_sample(file_path: &Path) -> anyhow::Result<(wav::Header, Vec<i16>)> {
-    let mut file = File::open(&file_path)
-        .with_context(|| "Cannot open input file")?;
-    let (header, bit_depth) = wav::read(&mut file)
-        .with_context(|| "Cannot read input file")?;
+    let mut file = File::open(&file_path).with_context(|| "Cannot open input file")?;
+    let (header, bit_depth) = wav::read(&mut file).with_context(|| "Cannot read input file")?;
 
     //TODO conversions
     let data = match bit_depth {
@@ -65,7 +57,8 @@ fn read_sample(file_path: &Path) -> anyhow::Result<(wav::Header, Vec<i16>)> {
 fn get_output_file(arg_matches: &ArgMatches, input_file: &str) -> String {
     // TODO
     let mut dir = std::env::current_dir().unwrap_or(PathBuf::from("."));
-    arg_matches.value_of("output")
+    arg_matches
+        .value_of("output")
         .map(|s| String::from(s))
         .or_else(|| {
             Path::new(input_file)
@@ -75,7 +68,8 @@ fn get_output_file(arg_matches: &ArgMatches, input_file: &str) -> String {
                     dir.push(format!("{}.wav", s));
                     dir.to_str().map(|s| String::from(s))
                 })
-        }).unwrap()
+        })
+        .unwrap()
 }
 
 fn load(input_file: &str, output_file: &str) -> anyhow::Result<()> {
@@ -91,7 +85,14 @@ fn load(input_file: &str, output_file: &str) -> anyhow::Result<()> {
                 let (header, data) = read_sample(&file_path)?;
                 let compression = sample.compression.or(volca_sample.default_compression);
 
-                debug!("Sample {} '{}', duration = {}s, compression = {:?}, wav: {:?}", index, file_path.to_string_lossy(), data.len() as f32 / header.sampling_rate as f32, compression, header);
+                debug!(
+                    "Sample {} '{}', duration = {}s, compression = {:?}, wav: {:?}",
+                    index,
+                    file_path.to_string_lossy(),
+                    data.len() as f32 / header.sampling_rate as f32,
+                    compression,
+                    header
+                );
                 syro_stream.add_sample(index, data, header.sampling_rate, compression)?;
             }
             SampleAction::Erase => {
@@ -104,7 +105,12 @@ fn load(input_file: &str, output_file: &str) -> anyhow::Result<()> {
     let syro_out = syro_stream.generate()?;
 
     let header = wav::Header::new(1, 2, 44100, 16);
-    debug!("Output '{}', duration = {}s, wav: {:?}", output_file, syro_out.len() as f32 / header.sampling_rate as f32, header);
+    debug!(
+        "Output '{}', duration = {}s, wav: {:?}",
+        output_file,
+        syro_out.len() as f32 / header.sampling_rate as f32,
+        header
+    );
 
     let output = File::create(&output_file)?;
 
@@ -122,7 +128,12 @@ fn reset(input_file: &str, output_file: &str, compression: Option<u32>) -> anyho
     let data = read(input_file)?;
     let syro_out = SyroStream::reset(data, compression)?;
     let header = wav::Header::new(1, 2, 44100, 16);
-    debug!("Output '{}', duration = {}s, wav: {:?}", output_file, syro_out.len() as f32 / header.sampling_rate as f32, header);
+    debug!(
+        "Output '{}', duration = {}s, wav: {:?}",
+        output_file,
+        syro_out.len() as f32 / header.sampling_rate as f32,
+        header
+    );
 
     let output = File::create(&output_file)?;
 
@@ -137,7 +148,8 @@ fn reset(input_file: &str, output_file: &str, compression: Option<u32>) -> anyho
 }
 
 fn compress_validator(v: String) -> Result<(), String> {
-    let value = v.parse::<u32>()
+    let value = v
+        .parse::<u32>()
         .map_err(|_| String::from("Cannot parse into u32"))?;
     if value < 8 || value > 16 {
         Err(String::from("Invalid value, must be between 8 and 16"))
@@ -148,32 +160,39 @@ fn compress_validator(v: String) -> Result<(), String> {
 
 fn main() -> anyhow::Result<()> {
     let output_arg = Arg::with_name("output")
-                .short("o")
-                .long("out_file")
-                .takes_value(true);
+        .short("o")
+        .long("out_file")
+        .takes_value(true);
     let matches = App::new("vsrs")
-        .subcommand(SubCommand::with_name("load")
-            .about("About load")
-            .arg(Arg::with_name("input").required(true).index(1))
-            .arg(&output_arg)
+        .version("0.1.0")
+        .subcommand(
+            SubCommand::with_name("load")
+                .about("Load sample configuration file")
+                .arg(Arg::with_name("input").required(true).index(1))
+                .arg(&output_arg),
         )
-        .subcommand(SubCommand::with_name("reset")
-            .about("About reset")
-            .arg(Arg::with_name("input").required(true).index(1))
-            .arg(&output_arg)
-            .arg(Arg::with_name("compress")
-                    .short("c")
-                    .long("compress")
-                    .validator(compress_validator)
-                    .takes_value(true)
-                    .help("compression of .alldata file"))
+        .subcommand(
+            SubCommand::with_name("reset")
+                .about("Reset to factory settings using a .alldata file")
+                .arg(Arg::with_name("input").required(true).index(1))
+                .arg(&output_arg)
+                .arg(
+                    Arg::with_name("compress")
+                        .short("c")
+                        .long("compress")
+                        .validator(compress_validator)
+                        .takes_value(true)
+                        .help("compression of .alldata file"),
+                ),
         )
-        .arg(Arg::with_name("verbose")
+        .arg(
+            Arg::with_name("verbose")
                 .short("v")
                 .multiple(true)
-                .help("verbosity level"))
+                .help("verbosity level"),
+        )
         .get_matches();
-    
+
     let log_level = match matches.occurrences_of("verbose") {
         0 => log::LevelFilter::Error,
         1 => log::LevelFilter::Warn,
