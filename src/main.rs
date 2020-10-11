@@ -32,6 +32,8 @@ enum SampleAction {
 
 #[derive(Debug, Deserialize)]
 struct VolcaSample {
+    // Default compression to appply for all
+    default_compression: Option<u32>,
     samples: HashMap<u32, SampleAction>
 }
 
@@ -87,9 +89,10 @@ fn load(input_file: &str, output_file: &str) -> anyhow::Result<()> {
             SampleAction::Sample(sample) => {
                 let file_path = input_dir.join(sample.file).into_boxed_path();
                 let (header, data) = read_sample(&file_path)?;
+                let compression = sample.compression.or(volca_sample.default_compression);
 
-                debug!("Sample {} '{}', duration = {}s, compression = {:?}, wav: {:?}", index, file_path.to_string_lossy(), data.len() as f32 / header.sampling_rate as f32, sample.compression, header);
-                syro_stream.add_sample(index, data, header.sampling_rate, sample.compression)?;
+                debug!("Sample {} '{}', duration = {}s, compression = {:?}, wav: {:?}", index, file_path.to_string_lossy(), data.len() as f32 / header.sampling_rate as f32, compression, header);
+                syro_stream.add_sample(index, data, header.sampling_rate, compression)?;
             }
             SampleAction::Erase => {
                 debug!("Erase {}", index);
