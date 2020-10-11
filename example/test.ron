@@ -1,0 +1,10 @@
+#![enable(implicit_some)]
+VolcaSample(
+    samples: {
+        0: Sample((
+            file: "kick.wav",
+            // compression: 16,
+        )),
+        // 0: Erase
+    }
+)
