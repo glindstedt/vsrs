@@ -1,0 +1,305 @@
+#![enable(implicit_some)]
+VolcaSample(
+    samples: {
+            0: Sample((
+                file: "Clap/Clap_Kit4_FreeKit_MW.wav",
+            )),
+            1: Sample((
+                file: "Clap/Clap_Kit3_FreeKit_MW.wav",
+            )),
+            2: Sample((
+                file: "Clap/Clap_Kit2_FreeKit_MW.wav",
+            )),
+            3: Sample((
+                file: "Clap/Clap_Kit10_FreeKit_MW.wav",
+            )),
+            4: Sample((
+                file: "Clap/Clap_Kit5_FreeKit_MW.wav",
+            )),
+            5: Sample((
+                file: "Clap/Clap_Kit7_FreeKit_MW.wav",
+            )),
+            6: Sample((
+                file: "Clap/Clap_Kit8_FreeKit_MW.wav",
+            )),
+            7: Sample((
+                file: "Clap/Clap_Kit1_FreeKit_MW.wav",
+            )),
+            8: Sample((
+                file: "Clap/Clap_Kit9_FreeKit_MW.wav",
+            )),
+            9: Sample((
+                file: "Clap/Clap_Kit6_FreeKit_MW.wav",
+            )),
+            10: Sample((
+                file: "FX_Crazy/FXCrazy_Kit5_FreeKit_MW.wav",
+            )),
+            11: Sample((
+                file: "FX_Crazy/FXCrazy_Kit2_FreeKit_MW.wav",
+            )),
+            12: Sample((
+                file: "FX_Crazy/FXCrazy_Kit3_FreeKit_MW.wav",
+            )),
+            13: Sample((
+                file: "FX_Crazy/FXCrazy_Kit4_FreeKit_MW.wav",
+            )),
+            14: Sample((
+                file: "FX_Crazy/FXCrazy_Kit6_FreeKit_MW.wav",
+            )),
+            15: Sample((
+                file: "FX_Crazy/FXCrazy_Kit1_FreeKit_MW.wav",
+            )),
+            16: Sample((
+                file: "FX_Crazy/FXCrazy_Kit9_FreeKit_MW.wav",
+            )),
+            17: Sample((
+                file: "FX_Crazy/FXCrazy_Kit8_FreeKit_MW.wav",
+            )),
+            18: Sample((
+                file: "FX_Crazy/FXCrazy_Kit10_FreeKit_MW.wav",
+            )),
+            19: Sample((
+                file: "FX_Crazy/FXCrazy_Kit7_FreeKit_MW.wav",
+            )),
+            20: Sample((
+                file: "Hi_Hat-Closed/HH_Closed_Kit10_FreeKit_MW.wav",
+            )),
+            21: Sample((
+                file: "Hi_Hat-Closed/HH_Closed_Kit7_FreeKit_MW.wav",
+            )),
+            22: Sample((
+                file: "Hi_Hat-Closed/HH_Closed_Kit8_FreeKit_MW.wav",
+            )),
+            23: Sample((
+                file: "Hi_Hat-Closed/HH_Closed_Kit9_FreeKit_MW.wav",
+            )),
+            24: Sample((
+                file: "Hi_Hat-Closed/HH_Closed_Kit1_FreeKit_MW.wav",
+            )),
+            25: Sample((
+                file: "Hi_Hat-Closed/HH_Closed_Kit6_FreeKit_MW.wav",
+            )),
+            26: Sample((
+                file: "Hi_Hat-Closed/HH_Closed_Kit4_FreeKit_MW.wav",
+            )),
+            27: Sample((
+                file: "Hi_Hat-Closed/HH_Closed_Kit3_FreeKit_MW.wav",
+            )),
+            28: Sample((
+                file: "Hi_Hat-Closed/HH_Closed_Kit2_FreeKit_MW.wav",
+            )),
+            29: Sample((
+                file: "Hi_Hat-Closed/HH_Closed_Kit5_FreeKit_MW.wav",
+            )),
+            30: Sample((
+                file: "Hi_Hat-Open/HH_Open_Kit5_FreeKit_MW.wav",
+            )),
+            31: Sample((
+                file: "Hi_Hat-Open/HH_Open_Kit2_FreeKit_MW.wav",
+            )),
+            32: Sample((
+                file: "Hi_Hat-Open/HH_Open_Kit3_FreeKit_MW.wav",
+            )),
+            33: Sample((
+                file: "Hi_Hat-Open/HH_Open_Kit4_FreeKit_MW.wav",
+            )),
+            34: Sample((
+                file: "Hi_Hat-Open/HH_Open_Kit10_FreeKit_MW.wav",
+            )),
+            35: Sample((
+                file: "Hi_Hat-Open/HH_Open_Kit6_FreeKit_MW.wav",
+            )),
+            36: Sample((
+                file: "Hi_Hat-Open/HH_Open_Kit9_FreeKit_MW.wav",
+            )),
+            37: Sample((
+                file: "Hi_Hat-Open/HH_Open_Kit1_FreeKit_MW.wav",
+            )),
+            38: Sample((
+                file: "Hi_Hat-Open/HH_Open_Kit8_FreeKit_MW.wav",
+            )),
+            39: Sample((
+                file: "Hi_Hat-Open/HH_Open_Kit7_FreeKit_MW.wav",
+            )),
+            40: Sample((
+                file: "Kick/Kick_Kit1_FreeKit_MW.wav",
+            )),
+            41: Sample((
+                file: "Kick/Kick_Kit6_FreeKit_MW.wav",
+            )),
+            42: Sample((
+                file: "Kick/Kick_Kit10_FreeKit_MW.wav",
+            )),
+            43: Sample((
+                file: "Kick/Kick_Kit7_FreeKit_MW.wav",
+            )),
+            44: Sample((
+                file: "Kick/Kick_Kit8_FreeKit_MW.wav",
+            )),
+            45: Sample((
+                file: "Kick/Kick_Kit2_FreeKit_MW.wav",
+            )),
+            46: Sample((
+                file: "Kick/Kick_Kit5_FreeKit_MW.wav",
+            )),
+            47: Sample((
+                file: "Kick/Kick_Kit4_FreeKit_MW.wav",
+            )),
+            48: Sample((
+                file: "Kick/Kick_Kit9_FreeKit_MWkik.wav",
+            )),
+            49: Sample((
+                file: "Kick/Kick_Kit3_FreeKit_MW.wav",
+            )),
+            50: Sample((
+                file: "Perc_1-2/Perc2_Kit10_FreeKit_MW.wav",
+            )),
+            51: Sample((
+                file: "Perc_1-2/Perc2_Kit3_FreeKit_MW.wav",
+            )),
+            52: Sample((
+                file: "Perc_1-2/Perc1_Kit4_FreeKit_MW.wav",
+            )),
+            53: Sample((
+                file: "Perc_1-2/Perc2_Kit4_FreeKit_MW.wav",
+            )),
+            54: Sample((
+                file: "Perc_1-2/Perc1_Kit3_FreeKit_MW.wav",
+            )),
+            55: Sample((
+                file: "Perc_1-2/Perc1_Kit2_FreeKit_MW.wav",
+            )),
+            56: Sample((
+                file: "Perc_1-2/Perc2_Kit5_FreeKit_MW.wav",
+            )),
+            57: Sample((
+                file: "Perc_1-2/Perc1_Kit10_FreeKit_MW.wav",
+            )),
+            58: Sample((
+                file: "Perc_1-2/Perc1_Kit5_FreeKit_MW.wav",
+            )),
+            59: Sample((
+                file: "Perc_1-2/Perc2_Kit2_FreeKit_MW.wav",
+            )),
+            60: Sample((
+                file: "Perc_1-2/Perc2_Kit8_FreeKit_MW.wav",
+            )),
+            61: Sample((
+                file: "Perc_1-2/Perc1_Kit7_FreeKit_MW.wav",
+            )),
+            62: Sample((
+                file: "Perc_1-2/Perc2_Kit7_FreeKit_MW.wav",
+            )),
+            63: Sample((
+                file: "Perc_1-2/Perc1_Kit8_FreeKit_MW.wav",
+            )),
+            64: Sample((
+                file: "Perc_1-2/Perc1_Kit9_FreeKit_MW.wav",
+            )),
+            65: Sample((
+                file: "Perc_1-2/Perc2_Kit6_FreeKit_MW.wav",
+            )),
+            66: Sample((
+                file: "Perc_1-2/Perc1_Kit1_FreeKit_MW.wav",
+            )),
+            67: Sample((
+                file: "Perc_1-2/Perc2_Kit1_FreeKit_MW.wav",
+            )),
+            68: Sample((
+                file: "Perc_1-2/Perc1_Kit6_FreeKit_MW.wav",
+            )),
+            69: Sample((
+                file: "Perc_1-2/Perc2_Kit9_FreeKit_MW.wav",
+            )),
+            70: Sample((
+                file: "Snare/Snare_Kit1_FreeKit_MW.wav",
+            )),
+            71: Sample((
+                file: "Snare/Snare_Kit9_FreeKit_MW.wav",
+            )),
+            72: Sample((
+                file: "Snare/Snare_Kit6_FreeKit_MW.wav",
+            )),
+            73: Sample((
+                file: "Snare/Snare_Kit7_FreeKit_MW.wav",
+            )),
+            74: Sample((
+                file: "Snare/Snare_Kit8_FreeKit_MW.wav",
+            )),
+            75: Sample((
+                file: "Snare/Snare_Kit2_FreeKit_MW.wav",
+            )),
+            76: Sample((
+                file: "Snare/Snare_Kit5_FreeKit_MW.wav",
+            )),
+            77: Sample((
+                file: "Snare/Snare_Kit4_FreeKit_MW.wav",
+            )),
+            78: Sample((
+                file: "Snare/Snare_Kit3_FreeKit_MW.wav",
+            )),
+            79: Sample((
+                file: "Snare/Snare_Kit10_FreeKit_MW.wav",
+            )),
+            80: Sample((
+                file: "Synth_Bass/Synth_Bass_Kit5_FreeKit_MW.wav",
+            )),
+            81: Sample((
+                file: "Synth_Bass/Synth_Bass_Kit2_FreeKit_MW.wav",
+            )),
+            82: Sample((
+                file: "Synth_Bass/Synth_Bass_Kit3_FreeKit_MW.wav",
+            )),
+            83: Sample((
+                file: "Synth_Bass/Synth_Bass_Kit4_FreeKit_MW.wav",
+            )),
+            84: Sample((
+                file: "Synth_Bass/Synth_Bass_Kit6_FreeKit_MW.wav",
+            )),
+            85: Sample((
+                file: "Synth_Bass/Synth_Bass_Kit1_FreeKit_MW.wav",
+            )),
+            86: Sample((
+                file: "Synth_Bass/Synth_Bass_Kit9_FreeKit_MW.wav",
+            )),
+            87: Sample((
+                file: "Synth_Bass/Synth_Bass_Kit10_FreeKit_MW.wav",
+            )),
+            88: Sample((
+                file: "Synth_Bass/Synth_Bass_Kit8_FreeKit_MW.wav",
+            )),
+            89: Sample((
+                file: "Synth_Bass/Synth_Bass_Kit7_FreeKit_MW.wav",
+            )),
+            90: Sample((
+                file: "Synth_Lead/Synth_Lead_Kit2_FreeKit_MW.wav",
+            )),
+            91: Sample((
+                file: "Synth_Lead/Synth_Lead_Kit5_FreeKit_MW.wav",
+            )),
+            92: Sample((
+                file: "Synth_Lead/Synth_Lead_Kit4_FreeKit_MW.wav",
+            )),
+            93: Sample((
+                file: "Synth_Lead/Synth_Lead_Kit10_FreeKit_MW.wav",
+            )),
+            94: Sample((
+                file: "Synth_Lead/Synth_Lead_Kit3_FreeKit_MW.wav",
+            )),
+            95: Sample((
+                file: "Synth_Lead/Synth_Lead_Kit9_FreeKit_MW.wav",
+            )),
+            96: Sample((
+                file: "Synth_Lead/Synth_Lead_Kit1_FreeKit_MW.wav",
+            )),
+            97: Sample((
+                file: "Synth_Lead/Synth_Lead_Kit6_FreeKit_MW.wav",
+            )),
+            98: Sample((
+                file: "Synth_Lead/Synth_Lead_Kit7_FreeKit_MW.wav",
+            )),
+            99: Sample((
+                file: "Synth_Lead/Synth_Lead_Kit8_FreeKit_MW.wav",
+            )),
+    },
+)

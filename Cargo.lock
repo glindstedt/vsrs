@@ -194,7 +194,8 @@ dependencies = [
 [[package]]
 name = "korg-syro"
 version = "0.1.0"
-source = "git+https://github.com/glindstedt/korg-syro-rs#447d8f93c806f2e20422c9535f7e823f9f55a90a"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "bcf4fcbc518df98b8595114119514b059e7135489daf1114042d0def9f180e49"
 dependencies = [
  "byteorder",
  "korg-syro-sys",

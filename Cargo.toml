@@ -1,15 +1,25 @@
 [package]
 name = "vsrs"
+description = "Command line utility for generating sample streams for the Volca Sample"
+documentation = "https://docs.rs/vsrs"
+repository = "https://github.com/glindstedt/vsrs"
+license = "LGPL-3.0-or-later"
 version = "0.1.0"
 authors = ["Gustaf Lindstedt <gustaflindstedt@protonmail.com>"]
 edition = "2018"
+keywords = ["audio", "cli"]
+categories = ["multimedia::audio", "command-line-utilities"]
+exclude = [
+    "contrib",
+    "*.ron"
+]
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
 [dependencies]
 anyhow = "1.0"
 clap = "2.33"
-korg-syro = { git = "https://github.com/glindstedt/korg-syro-rs" }
+korg-syro = "0.1.0"
 log = "0.4"
 ron = "0.6"
 serde = "1.0"
