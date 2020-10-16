@@ -17,6 +17,6 @@ ls dir_with_samples | genron.sh > dir_with_samples/samples.ron
     [https://volcasamplepack.wordpress.com/2018/10/06/analog-drum-sounds-and-synths-on-volca-sample/](https://volcasamplepack.wordpress.com/2018/10/06/analog-drum-sounds-and-synths-on-volca-sample/)
 * [srvchill](./srvchill/srvchill.ron) extract the samples from this pack into the directory, note that they have not been ordered in the example:
     [https://volcasamplepack.wordpress.com/2018/10/06/srv-chill-ambient-downtempo-beats-on-volca-sample/](https://volcasamplepack.wordpress.com/2018/10/06/srv-chill-ambient-downtempo-beats-on-volca-sample/)
-* [moa8itwedding](./moa8itwedding/moa8wedding.ron) extract the samples from the `LQ_16Bit_41-Khz` directory in the WAV pack:
+* [moa8itwedding](./moa8itwedding/moa8itwedding.ron) extract the samples from the `LQ_16Bit_41-Khz` directory in the WAV pack:
     [https://moa8itwedding.com/free-volca-sample-pack/](https://moa8itwedding.com/free-volca-sample-pack/)
 * [test](./test/test.ron) used for test, `kick.wav` can be found [here](https://github.com/korginc/volcasample/blob/master/example/execute_gnulinux/02%20Kick%203.wav)

@@ -57,8 +57,8 @@ use std::path::{Path, PathBuf};
 
 use anyhow::Context;
 use clap::{App, Arg, ArgMatches, SubCommand};
-use korg_syro::SyroStream;
-use log::{debug, info};
+use korg_syro::{SyroStream, pattern, pattern::num_enum::TryFromPrimitive};
+use log::{debug, info, trace};
 use ron::de::from_str;
 use serde::Deserialize;
 use simple_logger::SimpleLogger;
@@ -77,10 +77,23 @@ enum SampleAction {
 }
 
 #[derive(Debug, Deserialize)]
+struct PartDefinition {
+    sample: u32,
+    steps: Vec<u32>,
+}
+
+#[derive(Debug, Deserialize)]
+struct PatternDefinition {
+    parts: HashMap<u32, PartDefinition>
+}
+
+// TODO validation
+#[derive(Debug, Deserialize)]
 struct VolcaSample {
     // Default compression to apply for all
     default_compression: Option<u32>,
-    samples: HashMap<u32, SampleAction>,
+    samples: Option<HashMap<u32, SampleAction>>,
+    patterns: Option<HashMap<u32, PatternDefinition>>,
 }
 
 fn get_ron_data(file_name: &str) -> anyhow::Result<VolcaSample> {
@@ -123,33 +136,75 @@ fn get_output_file(arg_matches: &ArgMatches, input_file: &str) -> String {
         .unwrap()
 }
 
+fn parse_steps_definition(steps_definition: &[u32]) -> anyhow::Result<pattern::Steps> {
+    let mut steps = pattern::Steps::builder();
+    for (index, value) in steps_definition.iter().enumerate() {
+        let step = pattern::Step::try_from_primitive(index as u8)?;
+        if *value == 1 {
+            steps.on(step);
+        }
+    }
+    Ok(steps)
+}
+
+fn parse_part_definition(part_definition: &PartDefinition) -> anyhow::Result<pattern::Part> {
+    let mut part = pattern::Part::for_sample(part_definition.sample as u16)?;
+    let steps = parse_steps_definition(&part_definition.steps)?;
+    part.with_steps(steps);
+    debug!("{:?}", part);
+    Ok(part)
+}
+
+fn parse_pattern_definition(pattern_index: u32, pattern_definition: &PatternDefinition) -> anyhow::Result<pattern::Pattern> {
+    let mut pattern = pattern::Pattern::default();
+    for (part_index, part_definition) in pattern_definition.parts.iter() {
+        debug!("Part Definition {}: {:?}", part_index, part_definition);
+        let part = parse_part_definition(part_definition)?;
+        pattern.with_part(
+            *part_index as u8,
+            part
+        )?;
+    }
+    trace!("Pattern {}: {:?}", pattern_index, pattern);
+    Ok(pattern)
+}
+
 fn load(input_file: &str, output_file: &str) -> anyhow::Result<()> {
     let input_dir = Path::new(input_file).parent().unwrap_or(Path::new("."));
     let volca_sample = get_ron_data(input_file)?;
 
     let mut syro_stream = SyroStream::default();
 
-    for (index, sample_action) in volca_sample.samples {
-        match sample_action {
-            SampleAction::Sample(sample) => {
-                let file_path = input_dir.join(sample.file).into_boxed_path();
-                let (header, data) = read_sample(&file_path)?;
-                let compression = sample.compression.or(volca_sample.default_compression);
+    if let Some(samples) = volca_sample.samples {
+        for (index, sample_action) in samples {
+            match sample_action {
+                SampleAction::Sample(sample) => {
+                    let file_path = input_dir.join(sample.file).into_boxed_path();
+                    let (header, data) = read_sample(&file_path)?;
+                    let compression = sample.compression.or(volca_sample.default_compression);
 
-                debug!(
-                    "Sample {} '{}', duration = {}s, compression = {:?}, wav: {:?}",
-                    index,
-                    file_path.to_string_lossy(),
-                    data.len() as f32 / header.sampling_rate as f32,
-                    compression,
-                    header
-                );
-                syro_stream.add_sample(index, data, header.sampling_rate, compression)?;
+                    debug!(
+                        "Sample {} '{}', duration = {}s, compression = {:?}, wav: {:?}",
+                        index,
+                        file_path.to_string_lossy(),
+                        data.len() as f32 / header.sampling_rate as f32,
+                        compression,
+                        header
+                    );
+                    syro_stream.add_sample(index, data, header.sampling_rate, compression)?;
+                }
+                SampleAction::Erase => {
+                    debug!("Erase {}", index);
+                    syro_stream.erase_sample(index)?;
+                }
             }
-            SampleAction::Erase => {
-                debug!("Erase {}", index);
-                syro_stream.erase_sample(index)?;
-            }
+        }
+    }
+
+    if let Some(patterns) = volca_sample.patterns {
+        for (index, pattern_definition) in patterns {
+            let mut pattern = parse_pattern_definition(index, &pattern_definition)?;
+            syro_stream.add_pattern(index as usize, pattern)?;
         }
     }
 
@@ -272,4 +327,56 @@ fn main() -> anyhow::Result<()> {
     }
 
     Ok(())
+}
+
+
+#[cfg(test)]
+mod test {
+    use super::*;
+    use anyhow;
+    use ron::de::from_str;
+
+    #[test]
+    fn test_parse_steps_definition() -> anyhow::Result<()> {
+        let steps_def = [1, 1, 1, 0, 1, 0, 1, 0, 1, 0, 0, 0, 1, 0, 0, 0];
+        let steps = parse_steps_definition(&steps_def)?;
+        println!("{:016b}", steps.to_bytes());
+        assert_eq!(steps.to_bytes(), 0b0001000101010111);
+        Ok(())
+    }
+
+    #[test]
+    fn test_pattern() -> anyhow::Result<()>{
+        let ron_data = r#"
+        #![enable(implicit_some)]
+        VolcaSample(
+            samples: {},
+            patterns: {
+                0: (
+                    parts: {
+                        0: (
+                            sample: 0,
+                            steps: [0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1],
+                        ),
+                        1: (
+                            sample: 1,
+                            steps: [1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0],
+                        )
+                    }
+                )
+            },
+        )
+        "#;
+
+        let parsed = from_str::<VolcaSample>(ron_data)?;
+
+        let patterns: Vec::<pattern::Pattern> = parsed.patterns.unwrap().iter().map(|(i, pd)| {
+            parse_pattern_definition(*i, pd).unwrap()
+        }).collect();
+
+        println!("{:?}", patterns);
+
+        // println!("{:?}", parsed);
+        Ok(())
+    }
 }

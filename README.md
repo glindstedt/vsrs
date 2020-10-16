@@ -1,6 +1,8 @@
 vsrs
 ====
 
+![Crates.io](https://img.shields.io/crates/v/vsrs)
+
 Command line utility for generating sample streams for the Volca Sample
 
 You configure which samples to use, which indexes to put them in,
