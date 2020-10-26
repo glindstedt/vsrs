@@ -1,7 +1,7 @@
 vsrs
 ====
 
-![Crates.io](https://img.shields.io/crates/v/vsrs)
+[![Crates.io](https://img.shields.io/crates/v/vsrs)](https://crates.io/crates/vsrs)
 
 Command line utility for generating sample streams for the Volca Sample
 

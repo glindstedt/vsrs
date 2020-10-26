@@ -205,8 +205,9 @@ fn main() -> anyhow::Result<()> {
         .short("o")
         .long("out_file")
         .takes_value(true);
-    let matches = App::new("vsrs")
-        .version("0.1.0")
+    let matches = App::new(clap::crate_name!())
+        .about(clap::crate_description!())
+        .version(clap::crate_version!())
         .subcommand(
             SubCommand::with_name("load")
                 .about("Load sample configuration file")

@@ -16,10 +16,33 @@ pub enum SampleAction {
     Erase,
 }
 
+#[derive(Copy, Clone, Debug, Deserialize)]
+#[serde(rename_all = "lowercase")]
+pub enum ToggleDef {
+    On,
+    Off
+}
+
+impl Into<korg_syro::pattern::Toggle> for ToggleDef {
+    fn into(self) -> korg_syro::pattern::Toggle {
+        use korg_syro::pattern::Toggle;
+        match self {
+            ToggleDef::On => Toggle::On,
+            ToggleDef::Off => Toggle::Off,
+        }
+    }
+}
+
 #[derive(Debug, Deserialize)]
 pub struct PartDef {
     pub sample: u32,
     pub steps: Vec<u32>,
+    pub motion: Option<ToggleDef>,
+    #[serde(rename = "loop")]
+    pub looped: Option<ToggleDef>,
+    pub reverb: Option<ToggleDef>,
+    pub reverse: Option<ToggleDef>,
+    pub mute: Option<ToggleDef>,
 }
 
 #[derive(Debug, Deserialize)]
@@ -51,6 +74,21 @@ pub fn parse_part_definition(part_definition: &PartDef) -> anyhow::Result<patter
     let mut part = pattern::Part::for_sample(part_definition.sample as u16)?;
     let steps = parse_steps_definition(&part_definition.steps)?;
     part.with_steps(steps);
+    if let Some(motion) = part_definition.motion {
+        part.motion(motion.into());
+    }
+    if let Some(looped) = part_definition.looped {
+        part.looped(looped.into());
+    }
+    if let Some(reverb) = part_definition.reverb {
+        part.reverb(reverb.into());
+    }
+    if let Some(reverse) = part_definition.reverse {
+        part.reverse(reverse.into());
+    }
+    if let Some(mute) = part_definition.mute {
+        part.mute(mute.into());
+    }
     debug!("{:?}", part);
     Ok(part)
 }
@@ -96,9 +134,23 @@ mod test {
                         0: (
                             sample: 0,
                             steps: [0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1],
+                            loop: on,
+                            reverb: off,
+                            reverse: on,
+                            motion: off,
+                            mute: off,
                         ),
                         1: (
                             sample: 1,
+                            steps: [1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0],
+                            loop: off,
+                            reverb: on,
+                            reverse: off,
+                            motion: on,
+                            mute: on,
+                        ),
+                        2: (
+                            sample: 2,
                             steps: [1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0],
                         )
                     }
