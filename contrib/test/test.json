@@ -1,0 +1,594 @@
+{
+  "samples": {
+    "0": {
+      "Sample": {
+        "file": "kick.wav"
+      }
+    },
+    "1": {
+      "Sample": {
+        "file": "kick.wav",
+        "compression": 16
+      }
+    },
+    "2": {
+      "Sample": {
+        "file": "kick.wav",
+        "compression": 15
+      }
+    },
+    "3": {
+      "Sample": {
+        "file": "kick.wav",
+        "compression": 14
+      }
+    },
+    "4": {
+      "Sample": {
+        "file": "kick.wav",
+        "compression": 13
+      }
+    },
+    "5": {
+      "Sample": {
+        "file": "kick.wav",
+        "compression": 12
+      }
+    },
+    "6": {
+      "Sample": {
+        "file": "kick.wav",
+        "compression": 11
+      }
+    },
+    "7": {
+      "Sample": {
+        "file": "kick.wav",
+        "compression": 10
+      }
+    },
+    "8": {
+      "Sample": {
+        "file": "kick.wav",
+        "compression": 9
+      }
+    },
+    "9": {
+      "Sample": {
+        "file": "kick.wav",
+        "compression": 8
+      }
+    },
+    "10": {
+      "Sample": {
+        "file": "kick.wav"
+      }
+    },
+    "11": {
+      "Sample": {
+        "file": "kick.wav",
+        "compression": 16
+      }
+    },
+    "12": {
+      "Sample": {
+        "file": "kick.wav",
+        "compression": 15
+      }
+    },
+    "13": {
+      "Sample": {
+        "file": "kick.wav",
+        "compression": 14
+      }
+    },
+    "14": {
+      "Sample": {
+        "file": "kick.wav",
+        "compression": 13
+      }
+    },
+    "15": {
+      "Sample": {
+        "file": "kick.wav",
+        "compression": 12
+      }
+    },
+    "16": {
+      "Sample": {
+        "file": "kick.wav",
+        "compression": 11
+      }
+    },
+    "17": {
+      "Sample": {
+        "file": "kick.wav",
+        "compression": 10
+      }
+    },
+    "18": {
+      "Sample": {
+        "file": "kick.wav",
+        "compression": 9
+      }
+    },
+    "19": {
+      "Sample": {
+        "file": "kick.wav",
+        "compression": 8
+      }
+    },
+    "20": {
+      "Sample": {
+        "file": "kick.wav"
+      }
+    },
+    "21": {
+      "Sample": {
+        "file": "kick.wav",
+        "compression": 16
+      }
+    },
+    "22": {
+      "Sample": {
+        "file": "kick.wav",
+        "compression": 15
+      }
+    },
+    "23": {
+      "Sample": {
+        "file": "kick.wav",
+        "compression": 14
+      }
+    },
+    "24": {
+      "Sample": {
+        "file": "kick.wav",
+        "compression": 13
+      }
+    },
+    "25": {
+      "Sample": {
+        "file": "kick.wav",
+        "compression": 12
+      }
+    },
+    "26": {
+      "Sample": {
+        "file": "kick.wav",
+        "compression": 11
+      }
+    },
+    "27": {
+      "Sample": {
+        "file": "kick.wav",
+        "compression": 10
+      }
+    },
+    "28": {
+      "Sample": {
+        "file": "kick.wav",
+        "compression": 9
+      }
+    },
+    "29": {
+      "Sample": {
+        "file": "kick.wav",
+        "compression": 8
+      }
+    },
+    "30": {
+      "Sample": {
+        "file": "kick.wav"
+      }
+    },
+    "31": {
+      "Sample": {
+        "file": "kick.wav",
+        "compression": 16
+      }
+    },
+    "32": {
+      "Sample": {
+        "file": "kick.wav",
+        "compression": 15
+      }
+    },
+    "33": {
+      "Sample": {
+        "file": "kick.wav",
+        "compression": 14
+      }
+    },
+    "34": {
+      "Sample": {
+        "file": "kick.wav",
+        "compression": 13
+      }
+    },
+    "35": {
+      "Sample": {
+        "file": "kick.wav",
+        "compression": 12
+      }
+    },
+    "36": {
+      "Sample": {
+        "file": "kick.wav",
+        "compression": 11
+      }
+    },
+    "37": {
+      "Sample": {
+        "file": "kick.wav",
+        "compression": 10
+      }
+    },
+    "38": {
+      "Sample": {
+        "file": "kick.wav",
+        "compression": 9
+      }
+    },
+    "39": {
+      "Sample": {
+        "file": "kick.wav",
+        "compression": 8
+      }
+    },
+    "40": {
+      "Sample": {
+        "file": "kick.wav"
+      }
+    },
+    "41": {
+      "Sample": {
+        "file": "kick.wav",
+        "compression": 16
+      }
+    },
+    "42": {
+      "Sample": {
+        "file": "kick.wav",
+        "compression": 15
+      }
+    },
+    "43": {
+      "Sample": {
+        "file": "kick.wav",
+        "compression": 14
+      }
+    },
+    "44": {
+      "Sample": {
+        "file": "kick.wav",
+        "compression": 13
+      }
+    },
+    "45": {
+      "Sample": {
+        "file": "kick.wav",
+        "compression": 12
+      }
+    },
+    "46": {
+      "Sample": {
+        "file": "kick.wav",
+        "compression": 11
+      }
+    },
+    "47": {
+      "Sample": {
+        "file": "kick.wav",
+        "compression": 10
+      }
+    },
+    "48": {
+      "Sample": {
+        "file": "kick.wav",
+        "compression": 9
+      }
+    },
+    "49": {
+      "Sample": {
+        "file": "kick.wav",
+        "compression": 8
+      }
+    },
+    "50": {
+      "Sample": {
+        "file": "kick.wav"
+      }
+    },
+    "51": {
+      "Sample": {
+        "file": "kick.wav",
+        "compression": 16
+      }
+    },
+    "52": {
+      "Sample": {
+        "file": "kick.wav",
+        "compression": 15
+      }
+    },
+    "53": {
+      "Sample": {
+        "file": "kick.wav",
+        "compression": 14
+      }
+    },
+    "54": {
+      "Sample": {
+        "file": "kick.wav",
+        "compression": 13
+      }
+    },
+    "55": {
+      "Sample": {
+        "file": "kick.wav",
+        "compression": 12
+      }
+    },
+    "56": {
+      "Sample": {
+        "file": "kick.wav",
+        "compression": 11
+      }
+    },
+    "57": {
+      "Sample": {
+        "file": "kick.wav",
+        "compression": 10
+      }
+    },
+    "58": {
+      "Sample": {
+        "file": "kick.wav",
+        "compression": 9
+      }
+    },
+    "59": {
+      "Sample": {
+        "file": "kick.wav",
+        "compression": 8
+      }
+    },
+    "60": {
+      "Sample": {
+        "file": "kick.wav"
+      }
+    },
+    "61": {
+      "Sample": {
+        "file": "kick.wav",
+        "compression": 16
+      }
+    },
+    "62": {
+      "Sample": {
+        "file": "kick.wav",
+        "compression": 15
+      }
+    },
+    "63": {
+      "Sample": {
+        "file": "kick.wav",
+        "compression": 14
+      }
+    },
+    "64": {
+      "Sample": {
+        "file": "kick.wav",
+        "compression": 13
+      }
+    },
+    "65": {
+      "Sample": {
+        "file": "kick.wav",
+        "compression": 12
+      }
+    },
+    "66": {
+      "Sample": {
+        "file": "kick.wav",
+        "compression": 11
+      }
+    },
+    "67": {
+      "Sample": {
+        "file": "kick.wav",
+        "compression": 10
+      }
+    },
+    "68": {
+      "Sample": {
+        "file": "kick.wav",
+        "compression": 9
+      }
+    },
+    "69": {
+      "Sample": {
+        "file": "kick.wav",
+        "compression": 8
+      }
+    },
+    "70": {
+      "Sample": {
+        "file": "kick.wav"
+      }
+    },
+    "71": {
+      "Sample": {
+        "file": "kick.wav",
+        "compression": 16
+      }
+    },
+    "72": {
+      "Sample": {
+        "file": "kick.wav",
+        "compression": 15
+      }
+    },
+    "73": {
+      "Sample": {
+        "file": "kick.wav",
+        "compression": 14
+      }
+    },
+    "74": {
+      "Sample": {
+        "file": "kick.wav",
+        "compression": 13
+      }
+    },
+    "75": {
+      "Sample": {
+        "file": "kick.wav",
+        "compression": 12
+      }
+    },
+    "76": {
+      "Sample": {
+        "file": "kick.wav",
+        "compression": 11
+      }
+    },
+    "77": {
+      "Sample": {
+        "file": "kick.wav",
+        "compression": 10
+      }
+    },
+    "78": {
+      "Sample": {
+        "file": "kick.wav",
+        "compression": 9
+      }
+    },
+    "79": {
+      "Sample": {
+        "file": "kick.wav",
+        "compression": 8
+      }
+    },
+    "80": {
+      "Sample": {
+        "file": "kick.wav"
+      }
+    },
+    "81": {
+      "Sample": {
+        "file": "kick.wav",
+        "compression": 16
+      }
+    },
+    "82": {
+      "Sample": {
+        "file": "kick.wav",
+        "compression": 15
+      }
+    },
+    "83": {
+      "Sample": {
+        "file": "kick.wav",
+        "compression": 14
+      }
+    },
+    "84": {
+      "Sample": {
+        "file": "kick.wav",
+        "compression": 13
+      }
+    },
+    "85": {
+      "Sample": {
+        "file": "kick.wav",
+        "compression": 12
+      }
+    },
+    "86": {
+      "Sample": {
+        "file": "kick.wav",
+        "compression": 11
+      }
+    },
+    "87": {
+      "Sample": {
+        "file": "kick.wav",
+        "compression": 10
+      }
+    },
+    "88": {
+      "Sample": {
+        "file": "kick.wav",
+        "compression": 9
+      }
+    },
+    "89": {
+      "Sample": {
+        "file": "kick.wav",
+        "compression": 8
+      }
+    },
+    "90": {
+      "Sample": {
+        "file": "kick.wav"
+      }
+    },
+    "91": {
+      "Sample": {
+        "file": "kick.wav",
+        "compression": 16
+      }
+    },
+    "92": {
+      "Sample": {
+        "file": "kick.wav",
+        "compression": 15
+      }
+    },
+    "93": {
+      "Sample": {
+        "file": "kick.wav",
+        "compression": 14
+      }
+    },
+    "94": {
+      "Sample": {
+        "file": "kick.wav",
+        "compression": 13
+      }
+    },
+    "95": {
+      "Sample": {
+        "file": "kick.wav",
+        "compression": 12
+      }
+    },
+    "96": {
+      "Sample": {
+        "file": "kick.wav",
+        "compression": 11
+      }
+    },
+    "97": {
+      "Sample": {
+        "file": "kick.wav",
+        "compression": 10
+      }
+    },
+    "98": {
+      "Sample": {
+        "file": "kick.wav",
+        "compression": 9
+      }
+    },
+    "99": {
+      "Sample": {
+        "file": "kick.wav",
+        "compression": 8
+      }
+    }
+  }
+}

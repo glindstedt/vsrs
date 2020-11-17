@@ -4,23 +4,23 @@ use std::collections::HashMap;
 use anyhow::Context;
 use korg_syro::{pattern, pattern::num_enum::TryFromPrimitive};
 use log::{debug, trace};
-use serde::Deserialize;
+use serde::{Serialize, Deserialize};
 
-#[derive(Debug, Deserialize)]
+#[derive(Debug, PartialEq, Serialize, Deserialize)]
 #[serde(deny_unknown_fields)]
 pub struct SampleDef {
     pub file: String,
     pub compression: Option<u32>,
 }
 
-#[derive(Debug, Deserialize)]
+#[derive(Debug, PartialEq, Serialize, Deserialize)]
 #[serde(deny_unknown_fields)]
 pub enum SampleAction {
     Sample(SampleDef),
     Erase,
 }
 
-#[derive(Copy, Clone, Debug, Deserialize)]
+#[derive(Copy, Clone, Debug, PartialEq, Serialize, Deserialize)]
 #[serde(deny_unknown_fields)]
 #[serde(rename_all = "lowercase")]
 pub enum ToggleDef {
@@ -38,7 +38,7 @@ impl Into<korg_syro::pattern::Toggle> for ToggleDef {
     }
 }
 
-#[derive(Debug, Deserialize)]
+#[derive(Debug, PartialEq, Serialize, Deserialize)]
 #[serde(deny_unknown_fields)]
 pub struct PartDef {
     pub sample: u32,
@@ -52,7 +52,7 @@ pub struct PartDef {
     pub motion_sequences: Option<MotionSequencesDef>,
 }
 
-#[derive(Debug, Deserialize)]
+#[derive(Debug, PartialEq, Serialize, Deserialize)]
 #[serde(deny_unknown_fields)]
 pub struct MotionSequencesDef {
     pub level_start: Option<Vec<u8>>,
@@ -71,14 +71,14 @@ pub struct MotionSequencesDef {
     pub hi_cut: Option<Vec<u8>>,
 }
 
-#[derive(Debug, Deserialize)]
+#[derive(Debug, PartialEq, Serialize, Deserialize)]
 #[serde(deny_unknown_fields)]
 pub struct PatternDef {
     pub parts: HashMap<u32, PartDef>,
 }
 
 // TODO validation
-#[derive(Debug, Deserialize)]
+#[derive(Debug, PartialEq, Serialize, Deserialize)]
 #[serde(deny_unknown_fields)]
 pub struct VolcaSample {
     // Default compression to apply for all
@@ -267,9 +267,65 @@ mod test {
         )
         "#;
 
-        let parsed = from_str::<VolcaSample>(ron_data)?;
+        let json_data = r#"
+        {
+          "samples": {},
+          "patterns": {
+            "0": {
+              "parts": {
+                "0": {
+                  "sample": 0,
+                  "steps": [ 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1 ],
+                  "motion": "off",
+                  "loop": "on",
+                  "reverb": "off",
+                  "reverse": "on",
+                  "mute": "off",
+                  "motion_sequences": {
+                    "level_start": [ 1, 8, 16, 24, 32, 40, 48, 56, 64, 72, 80, 88, 96, 104, 112, 120 ],
+                    "level_end": [ 1, 8, 16, 24, 32, 40, 48, 56, 64, 72, 80, 88, 96, 104, 112, 120 ],
+                    "pan_start": [ 1, 8, 16, 24, 32, 40, 48, 56, 64, 72, 80, 88, 96, 104, 112, 120 ],
+                    "pan_end": [ 1, 8, 16, 24, 32, 40, 48, 56, 64, 72, 80, 88, 96, 104, 112, 120 ],
+                    "speed_start": [ 40, 43, 46, 49, 52, 55, 58, 61, 64, 67, 70, 73, 76, 79, 82, 85 ],
+                    "speed_end": [ 129, 137, 145, 153, 161, 169, 177, 185, 193, 201, 209, 217, 225, 233, 241, 249 ],
+                    "amp_eg_attack": [ 1, 8, 16, 24, 32, 40, 48, 56, 64, 72, 80, 88, 96, 104, 112, 120 ],
+                    "amp_eg_decay": [ 1, 8, 16, 24, 32, 40, 48, 56, 64, 72, 80, 88, 96, 104, 112, 120 ],
+                    "pitch_eg_int": [ 1, 8, 16, 24, 32, 40, 48, 56, 64, 72, 80, 88, 96, 104, 112, 120 ],
+                    "pitch_eg_attack": [ 1, 8, 16, 24, 32, 40, 48, 56, 64, 72, 80, 88, 96, 104, 112, 120 ],
+                    "pitch_eg_decay": [ 1, 8, 16, 24, 32, 40, 48, 56, 64, 72, 80, 88, 96, 104, 112, 120 ],
+                    "start_point": [ 1, 8, 16, 24, 32, 40, 48, 56, 64, 72, 80, 88, 96, 104, 112, 120 ],
+                    "length": [ 1, 8, 16, 24, 32, 40, 48, 56, 64, 72, 80, 88, 96, 104, 112, 120 ],
+                    "hi_cut": [ 1, 8, 16, 24, 32, 40, 48, 56, 64, 72, 80, 88, 96, 104, 112, 120 ]
+                  }
+                },
+                "1": {
+                  "sample": 1,
+                  "steps": [ 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0 ],
+                  "motion": "on",
+                  "loop": "off",
+                  "reverb": "on",
+                  "reverse": "off",
+                  "mute": "on",
+                  "motion_sequences": {
+                    "level_start": [ 1, 8, 16, 24, 32, 40, 48, 56, 64, 72, 80, 88, 96, 104, 112, 120 ]
+                  }
+                },
+                "2": {
+                  "sample": 2,
+                  "steps": [ 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0 ]
+                }
+              }
+            }
+          }
+        }
+        "#;
 
-        let patterns: Vec<pattern::Pattern> = parsed
+        let parsed_ron = from_str::<VolcaSample>(ron_data)?;
+        let parsed_json = serde_json::from_str::<VolcaSample>(json_data)?;
+
+        assert_eq!(parsed_ron, parsed_json);
+
+        let patterns: Vec<pattern::Pattern> = parsed_ron
             .patterns
             .unwrap()
             .iter()

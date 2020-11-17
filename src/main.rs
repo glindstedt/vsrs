@@ -1,17 +1,35 @@
 //!
 //! Command line utility for generating sample streams for the Volca Sample
 //!
-//! You configure which samples to use, which indexes to put them in,
-//! and whether samples should be compressed, by using a [Ron file](https://github.com/ron-rs/ron),
-//! with the format documented below in the [Examples](#configuration-file) section.
-//! You can also generate a stream with the factory preset samples by using a .alldata file.
-//! The tool outputs a .wav file which is ready to be used for transferring
-//! the data to the Volca Sample. For details on the transfer process refer to
+//! Using a configuration file you configure which samples to use, which indexes to put them in,
+//! and whether samples should be compressed. You can also generate a stream with the factory
+//! preset samples by using a .alldata file. The tool outputs a .wav file which is ready to
+//! be used for transferring the data to the Volca Sample. For details on the transfer process refer to
 //! [transferring syrostream to your volca sample](https://github.com/korginc/volcasample#6-transferring-syrostream-to-your-volca-sample)
 //!
-//! # Examples
+//! # Running the program
 //!
-//! ## Configuration file
+//! Loading a configuration file
+//!
+//! ```shell
+//! vsrs load example.ron
+//! ```
+//!
+//! Restoring factory settings using a .alldata file.
+//! Files can be found at
+//! [https://github.com/korginc/volcasample/tree/master/alldata](https://github.com/korginc/volcasample/tree/master/alldata)
+//!
+//! ```shell
+//! vsrs reset all_sample_preset.alldata
+//! ```
+//!
+//! # Configuration format
+//!
+//! Supported configuration formats:
+//! * [Ron](https://github.com/ron-rs/ron)
+//! * JSON
+//!
+//! ### Ron
 //!
 //! ```rust
 //! // example.ron
@@ -30,27 +48,105 @@
 //!         )),
 //!         // Erase the sample at index 1
 //!         1: Erase,
-//!     }
+//!     },
+//!     // map of sequence patterns, valid keys are 0-9
+//!     patterns: {
+//!         0: (
+//!             // map of pattern parts, valid keys are 0-9
+//!             parts: {
+//!                 0: (
+//!                     // the sample to use for this part, valid values are 0-99
+//!                     sample: 0,
+//!                     // sequence steps, 1 = on, 0 = off
+//!                     steps: [0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1],
+//!                     // part toggle options
+//!                     loop: on,
+//!                     reverb: off,
+//!                     reverse: on,
+//!                     motion: on,
+//!                     mute: off,
+//!                     // motion sequences for the part
+//!                     motion_sequences: (
+//!                         // valid values: 0-127
+//!                         level_start: [1, 8, 16, 24, 32, 40, 48, 56, 64, 72, 80, 88, 96, 104, 112, 120],
+//!                         level_end: [1, 8, 16, 24, 32, 40, 48, 56, 64, 72, 80, 88, 96, 104, 112, 120],
+//!                         // valid values: 1-127
+//!                         pan_start: [1, 8, 16, 24, 32, 40, 48, 56, 64, 72, 80, 88, 96, 104, 112, 120],
+//!                         pan_end: [1, 8, 16, 24, 32, 40, 48, 56, 64, 72, 80, 88, 96, 104, 112, 120],
+//!                         // valid values: semitone = 40-88, continuous = 129-255
+//!                         speed_start: [40, 43, 46, 49, 52, 55, 58, 61, 64, 67, 70, 73, 76, 79, 82, 85],
+//!                         speed_end: [129, 137, 145, 153, 161, 169, 177, 185, 193, 201, 209, 217, 225, 233, 241, 249],
+//!                         // valid values: 0-127
+//!                         amp_eg_attack: [1, 8, 16, 24, 32, 40, 48, 56, 64, 72, 80, 88, 96, 104, 112, 120],
+//!                         amp_eg_decay: [1, 8, 16, 24, 32, 40, 48, 56, 64, 72, 80, 88, 96, 104, 112, 120],
+//!                         // valid values: 1-127
+//!                         pitch_eg_int: [1, 8, 16, 24, 32, 40, 48, 56, 64, 72, 80, 88, 96, 104, 112, 120],
+//!                         // valid values: 0-127
+//!                         pitch_eg_attack: [1, 8, 16, 24, 32, 40, 48, 56, 64, 72, 80, 88, 96, 104, 112, 120],
+//!                         pitch_eg_decay: [1, 8, 16, 24, 32, 40, 48, 56, 64, 72, 80, 88, 96, 104, 112, 120],
+//!                         start_point: [1, 8, 16, 24, 32, 40, 48, 56, 64, 72, 80, 88, 96, 104, 112, 120],
+//!                         length: [1, 8, 16, 24, 32, 40, 48, 56, 64, 72, 80, 88, 96, 104, 112, 120],
+//!                         hi_cut: [1, 8, 16, 24, 32, 40, 48, 56, 64, 72, 80, 88, 96, 104, 112, 120],
+//!                     ),
+//!                 ),
+//!             },
+//!         ),
+//!     },
 //! )
 //! ```
 //!
-//! ## Running the program
+//! ### JSON
 //!
-//! Loading a configuration file
+//! See the [Ron](#ron) section for more details about the values
 //!
-//! ```shell
-//! vsrs load example.ron
-//! ```
-//!
-//! Restoring factory settings using a .alldata file.
-//! Files can be found at
-//! [https://github.com/korginc/volcasample/tree/master/alldata](https://github.com/korginc/volcasample/tree/master/alldata)
-//!
-//! ```shell
-//! vsrs reset all_sample_preset.alldata
+//! ```json
+//! {
+//!   "default_compression": 16,
+//!   "samples": {
+//!     "0": {
+//!       "Sample": {
+//!           "file": "kick.wav",
+//!           "compression": 8
+//!       }
+//!     },
+//!     "1": "Erase"
+//!   },
+//!   "patterns": {
+//!     "0": {
+//!       "parts": {
+//!         "0": {
+//!           "sample": 0,
+//!           "steps": [ 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1 ],
+//!           "motion": "off",
+//!           "loop": "on",
+//!           "reverb": "off",
+//!           "reverse": "on",
+//!           "mute": "off",
+//!           "motion_sequences": {
+//!             "level_start": [ 1, 8, 16, 24, 32, 40, 48, 56, 64, 72, 80, 88, 96, 104, 112, 120 ],
+//!             "level_end": [ 1, 8, 16, 24, 32, 40, 48, 56, 64, 72, 80, 88, 96, 104, 112, 120 ],
+//!             "pan_start": [ 1, 8, 16, 24, 32, 40, 48, 56, 64, 72, 80, 88, 96, 104, 112, 120 ],
+//!             "pan_end": [ 1, 8, 16, 24, 32, 40, 48, 56, 64, 72, 80, 88, 96, 104, 112, 120 ],
+//!             "speed_start": [ 40, 43, 46, 49, 52, 55, 58, 61, 64, 67, 70, 73, 76, 79, 82, 85 ],
+//!             "speed_end": [ 129, 137, 145, 153, 161, 169, 177, 185, 193, 201, 209, 217, 225, 233, 241, 249 ],
+//!             "amp_eg_attack": [ 1, 8, 16, 24, 32, 40, 48, 56, 64, 72, 80, 88, 96, 104, 112, 120 ],
+//!             "amp_eg_decay": [ 1, 8, 16, 24, 32, 40, 48, 56, 64, 72, 80, 88, 96, 104, 112, 120 ],
+//!             "pitch_eg_int": [ 1, 8, 16, 24, 32, 40, 48, 56, 64, 72, 80, 88, 96, 104, 112, 120 ],
+//!             "pitch_eg_attack": [ 1, 8, 16, 24, 32, 40, 48, 56, 64, 72, 80, 88, 96, 104, 112, 120 ],
+//!             "pitch_eg_decay": [ 1, 8, 16, 24, 32, 40, 48, 56, 64, 72, 80, 88, 96, 104, 112, 120 ],
+//!             "start_point": [ 1, 8, 16, 24, 32, 40, 48, 56, 64, 72, 80, 88, 96, 104, 112, 120 ],
+//!             "length": [ 1, 8, 16, 24, 32, 40, 48, 56, 64, 72, 80, 88, 96, 104, 112, 120 ],
+//!             "hi_cut": [ 1, 8, 16, 24, 32, 40, 48, 56, 64, 72, 80, 88, 96, 104, 112, 120 ]
+//!           }
+//!         }
+//!       }
+//!     }
+//!   }
+//! }
 //! ```
 //!
 use std::fs::{read, read_to_string, File};
+use std::ffi::OsStr;
 use std::io::BufWriter;
 use std::path::{Path, PathBuf};
 
@@ -58,20 +154,32 @@ use anyhow::Context;
 use clap::{App, Arg, ArgMatches, SubCommand};
 use korg_syro::SyroStream;
 use log::{debug, info};
-use ron::de::from_str;
 use simple_logger::SimpleLogger;
 use wav;
 
 mod parse;
 use parse::*;
 
-fn get_ron_data(file_name: &str) -> anyhow::Result<VolcaSample> {
-    let ron_string = read_to_string(file_name)
-        .with_context(|| format!("Cannot open ron file '{}'", file_name))?;
-    let ron_data = from_str::<VolcaSample>(ron_string.as_str())
-        .with_context(|| format!("Cannot deserialize ron data in file '{}'", file_name))?;
+fn get_data(file_name: &str) -> anyhow::Result<VolcaSample> {
+    let data_string = read_to_string(file_name)
+        .with_context(|| format!("Cannot open file '{}'", file_name))?;
+    let extension = Path::new(file_name)
+        .extension()
+        .and_then(OsStr::to_str)
+        .expect("No file extension, cannot infer format");
+    let data = match extension {
+        "ron" => {
+            ron::de::from_str::<VolcaSample>(data_string.as_str())
+                .with_context(|| format!("Cannot deserialize ron data in file '{}'", file_name))?
+        },
+        "json" => {
+            serde_json::from_str::<VolcaSample>(data_string.as_str())
+                .with_context(|| format!("Cannot deserialize json data in file '{}'", file_name))?
+        }
+        _ => return Err(anyhow::anyhow!("Unkonwn file format"))
+    };
     info!("Loaded data from file '{}'", file_name);
-    Ok(ron_data)
+    Ok(data)
 }
 
 fn read_sample(file_path: &Path) -> anyhow::Result<(wav::Header, Vec<i16>)> {
@@ -107,10 +215,11 @@ fn get_output_file(arg_matches: &ArgMatches, input_file: &str) -> String {
 
 fn load(input_file: &str, output_file: &str) -> anyhow::Result<()> {
     let input_dir = Path::new(input_file).parent().unwrap_or(Path::new("."));
-    let volca_sample = get_ron_data(input_file)?;
+    let volca_sample = get_data(input_file)?;
 
     let mut syro_stream = SyroStream::default();
 
+    debug!("Parsing samples...");
     if let Some(samples) = volca_sample.samples {
         for (index, sample_action) in samples {
             match sample_action {
@@ -137,6 +246,7 @@ fn load(input_file: &str, output_file: &str) -> anyhow::Result<()> {
         }
     }
 
+    debug!("Parsing patterns...");
     if let Some(patterns) = volca_sample.patterns {
         for (index, pattern_definition) in patterns {
             let pattern = parse_pattern_definition(index, &pattern_definition)?;
