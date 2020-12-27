@@ -145,8 +145,8 @@
 //! }
 //! ```
 //!
-use std::fs::{read, read_to_string, File};
 use std::ffi::OsStr;
+use std::fs::{read, read_to_string, File};
 use std::io::BufWriter;
 use std::path::{Path, PathBuf};
 
@@ -161,22 +161,18 @@ mod parse;
 use parse::*;
 
 fn get_data(file_name: &str) -> anyhow::Result<VolcaSample> {
-    let data_string = read_to_string(file_name)
-        .with_context(|| format!("Cannot open file '{}'", file_name))?;
+    let data_string =
+        read_to_string(file_name).with_context(|| format!("Cannot open file '{}'", file_name))?;
     let extension = Path::new(file_name)
         .extension()
         .and_then(OsStr::to_str)
         .expect("No file extension, cannot infer format");
     let data = match extension {
-        "ron" => {
-            ron::de::from_str::<VolcaSample>(data_string.as_str())
-                .with_context(|| format!("Cannot deserialize ron data in file '{}'", file_name))?
-        },
-        "json" => {
-            serde_json::from_str::<VolcaSample>(data_string.as_str())
-                .with_context(|| format!("Cannot deserialize json data in file '{}'", file_name))?
-        }
-        _ => return Err(anyhow::anyhow!("Unkonwn file format"))
+        "ron" => ron::de::from_str::<VolcaSample>(data_string.as_str())
+            .with_context(|| format!("Cannot deserialize ron data in file '{}'", file_name))?,
+        "json" => serde_json::from_str::<VolcaSample>(data_string.as_str())
+            .with_context(|| format!("Cannot deserialize json data in file '{}'", file_name))?,
+        _ => return Err(anyhow::anyhow!("Unkonwn file format")),
     };
     info!("Loaded data from file '{}'", file_name);
     Ok(data)
@@ -248,8 +244,9 @@ fn load(input_file: &str, output_file: &str) -> anyhow::Result<()> {
 
     debug!("Parsing patterns...");
     if let Some(patterns) = volca_sample.patterns {
+        let default_reverb = volca_sample.default_part_reverb.unwrap_or(ToggleDef::Off);
         for (index, pattern_definition) in patterns {
-            let pattern = parse_pattern_definition(index, &pattern_definition)?;
+            let pattern = parse_pattern_definition(index, &pattern_definition, default_reverb)?;
             syro_stream.add_pattern(index as usize, pattern)?;
         }
     }
@@ -268,7 +265,7 @@ fn load(input_file: &str, output_file: &str) -> anyhow::Result<()> {
 
     wav::write(
         header,
-        wav::BitDepth::Sixteen(syro_out),
+        &wav::BitDepth::Sixteen(syro_out),
         &mut BufWriter::new(output),
     )?;
     info!("Wrote output to file '{}'", output_file);
@@ -291,7 +288,7 @@ fn reset(input_file: &str, output_file: &str, compression: Option<u32>) -> anyho
 
     wav::write(
         header,
-        wav::BitDepth::Sixteen(syro_out),
+        &wav::BitDepth::Sixteen(syro_out),
         &mut BufWriter::new(output),
     )?;
     info!("Wrote output to file '{}'", output_file);

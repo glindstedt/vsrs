@@ -1,10 +1,11 @@
-use std::convert::TryInto;
 use std::collections::HashMap;
+use std::convert::TryInto;
 
 use anyhow::Context;
 use korg_syro::{pattern, pattern::num_enum::TryFromPrimitive};
 use log::{debug, trace};
-use serde::{Serialize, Deserialize};
+use pattern::Toggle;
+use serde::{Deserialize, Serialize};
 
 #[derive(Debug, PartialEq, Serialize, Deserialize)]
 #[serde(deny_unknown_fields)]
@@ -25,7 +26,7 @@ pub enum SampleAction {
 #[serde(rename_all = "lowercase")]
 pub enum ToggleDef {
     On,
-    Off
+    Off,
 }
 
 impl Into<korg_syro::pattern::Toggle> for ToggleDef {
@@ -49,6 +50,16 @@ pub struct PartDef {
     pub reverb: Option<ToggleDef>,
     pub reverse: Option<ToggleDef>,
     pub mute: Option<ToggleDef>,
+    pub level: Option<u8>,
+    pub pan: Option<u8>,
+    pub amp_eg_attack: Option<u8>,
+    pub amp_eg_decay: Option<u8>,
+    pub pitch_eg_attack: Option<u8>,
+    pub pitch_eg_int: Option<u8>,
+    pub pitch_eg_decay: Option<u8>,
+    pub starting_point: Option<u8>,
+    pub length: Option<u8>,
+    pub hi_cut: Option<u8>,
     pub motion_sequences: Option<MotionSequencesDef>,
 }
 
@@ -84,6 +95,7 @@ pub struct VolcaSample {
     // Default compression to apply for all
     pub default_compression: Option<u32>,
     pub samples: Option<HashMap<u32, SampleAction>>,
+    pub default_part_reverb: Option<ToggleDef>,
     pub patterns: Option<HashMap<u32, PatternDef>>,
 }
 
@@ -110,12 +122,17 @@ trait VecU8Ext {
 
 impl VecU8Ext for Vec<u8> {
     fn into_motion_seq(&self) -> anyhow::Result<[u8; 16]> {
-        self.clone().as_slice().try_into()
+        self.clone()
+            .as_slice()
+            .try_into()
             .with_context(|| "unable to parse into motion sequence")
     }
 }
 
-pub fn parse_part_definition(part_definition: &PartDef) -> anyhow::Result<pattern::Part> {
+pub fn parse_part_definition(
+    part_definition: &PartDef,
+    default_reverb: ToggleDef,
+) -> anyhow::Result<pattern::Part> {
     let mut part = pattern::Part::for_sample(part_definition.sample as u16)?;
     let steps = part_definition.steps.into_steps()?;
     part.with_steps(steps);
@@ -127,12 +144,44 @@ pub fn parse_part_definition(part_definition: &PartDef) -> anyhow::Result<patter
     }
     if let Some(reverb) = part_definition.reverb {
         part.reverb(reverb.into());
+    } else {
+        part.reverb(default_reverb.into());
     }
     if let Some(reverse) = part_definition.reverse {
         part.reverse(reverse.into());
     }
     if let Some(mute) = part_definition.mute {
         part.mute(mute.into());
+    }
+    if let Some(level) = part_definition.level {
+        part.level(level)?;
+    }
+    if let Some(pan) = part_definition.pan {
+        part.pan(pan)?;
+    }
+    if let Some(amp_eg_attack) = part_definition.amp_eg_attack {
+        part.amp_eg_attack(amp_eg_attack)?;
+    }
+    if let Some(amp_eg_decay) = part_definition.amp_eg_decay {
+        part.amp_eg_decay(amp_eg_decay)?;
+    }
+    if let Some(pitch_eg_attack) = part_definition.pitch_eg_attack {
+        part.pitch_eg_attack(pitch_eg_attack)?;
+    }
+    if let Some(pitch_eg_int) = part_definition.pitch_eg_int {
+        part.pitch_eg_int(pitch_eg_int)?;
+    }
+    if let Some(pitch_eg_decay) = part_definition.pitch_eg_decay {
+        part.pitch_eg_decay(pitch_eg_decay)?;
+    }
+    if let Some(starting_point) = part_definition.starting_point {
+        part.starting_point(starting_point)?;
+    }
+    if let Some(length) = part_definition.length {
+        part.length(length)?;
+    }
+    if let Some(hi_cut) = part_definition.hi_cut {
+        part.hi_cut(hi_cut)?;
     }
     if let Some(motion_seqs) = &part_definition.motion_sequences {
         if let Some(level_start) = motion_seqs.level_start.as_ref() {
@@ -185,11 +234,12 @@ pub fn parse_part_definition(part_definition: &PartDef) -> anyhow::Result<patter
 pub fn parse_pattern_definition(
     pattern_index: u32,
     pattern_definition: &PatternDef,
+    default_reverb: ToggleDef,
 ) -> anyhow::Result<pattern::Pattern> {
     let mut pattern = pattern::Pattern::default();
     for (part_index, part_definition) in pattern_definition.parts.iter() {
         debug!("Part Definition {}: {:?}", part_index, part_definition);
-        let part = parse_part_definition(part_definition)?;
+        let part = parse_part_definition(part_definition, default_reverb)?;
         pattern.with_part(*part_index as u8, part)?;
     }
     trace!("Pattern {}: {:?}", pattern_index, pattern);
@@ -259,6 +309,16 @@ mod test {
                         ),
                         2: (
                             sample: 2,
+                            level: 64,
+                            pan: 127,
+                            amp_eg_attack: 64,
+                            amp_eg_decay: 64,
+                            pitch_eg_attack: 64,
+                            pitch_eg_int: 64,
+                            pitch_eg_decay: 64,
+                            starting_point: 64,
+                            length: 64,
+                            hi_cut: 64,
                             steps: [1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0],
                         )
                     }
@@ -312,6 +372,16 @@ mod test {
                 },
                 "2": {
                   "sample": 2,
+                  "level": 64,
+                  "pan": 127,
+                  "amp_eg_attack": 64,
+                  "amp_eg_decay": 64,
+                  "pitch_eg_attack": 64,
+                  "pitch_eg_int": 64,
+                  "pitch_eg_decay": 64,
+                  "starting_point": 64,
+                  "length": 64,
+                  "hi_cut": 64,
                   "steps": [ 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0 ]
                 }
               }
@@ -329,7 +399,7 @@ mod test {
             .patterns
             .unwrap()
             .iter()
-            .map(|(i, pd)| parse_pattern_definition(*i, pd).unwrap())
+            .map(|(i, pd)| parse_pattern_definition(*i, pd, ToggleDef::Off).unwrap())
             .collect();
 
         println!("{:?}", patterns);
