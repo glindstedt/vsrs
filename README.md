@@ -11,7 +11,13 @@ preset samples by using a .alldata file. The tool outputs a .wav file which is r
 be used for transferring the data to the Volca Sample. For details on the transfer process refer to
 [transferring syrostream to your volca sample](https://github.com/korginc/volcasample#6-transferring-syrostream-to-your-volca-sample)
 
-# Running the program
+# Installing
+
+```shell
+cargo install vsrs
+```
+
+# Running
 
 Loading a configuration file
 
