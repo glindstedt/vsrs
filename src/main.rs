@@ -4,7 +4,7 @@ use std::io::BufWriter;
 use std::path::{Path, PathBuf};
 
 use anyhow::Context;
-use clap::{App, Arg, ArgMatches, SubCommand};
+use clap::{App, AppSettings, Arg, ArgMatches, SubCommand};
 use korg_syro::SyroStream;
 use log::{debug, info};
 use simple_logger::SimpleLogger;
@@ -168,6 +168,7 @@ fn main() -> anyhow::Result<()> {
     let matches = App::new(clap::crate_name!())
         .about(clap::crate_description!())
         .version(clap::crate_version!())
+        .setting(AppSettings::SubcommandRequiredElseHelp)
         .subcommand(
             SubCommand::with_name("load")
                 .about("Load sample configuration file")
