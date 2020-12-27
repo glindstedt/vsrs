@@ -1,7 +1,7 @@
 vsrs
 ====
 
-[![Crates.io](https://img.shields.io/crates/v/vsrs)](https://crates.io/crates/vsrs)
+[![Latest Version]][crates.io] [![Documentation]][docs.rs]
 
 Command line utility for generating sample streams for the Volca Sample
 
@@ -53,3 +53,8 @@ Files can be found at
 ```shell
 vsrs reset all_sample_preset.alldata
 ```
+
+[docs.rs]: https://docs.rs/vsrs
+[crates.io]: https://crates.io/crates/vsrs
+[Documentation]: https://docs.rs/vsrs/badge.svg
+[Latest Version]: https://img.shields.io/crates/v/vsrs

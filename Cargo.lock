@@ -223,7 +223,8 @@ checksum = "dc6f3ad7b9d11a0c00842ff8de1b60ee58661048eb8049ed33c73594f359d7e6"
 [[package]]
 name = "korg-syro"
 version = "0.2.0"
-source = "git+https://github.com/glindstedt/korg-syro-rs?branch=master#dbba9fb15c9fe7cbbee00e01035cb6eb414db5d8"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "aa66224220167d681cf5d1285be14048c9b18f5144de4aebfeb4af98bce432af"
 dependencies = [
  "array-init",
  "byteorder",

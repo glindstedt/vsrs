@@ -19,7 +19,7 @@ exclude = [
 [dependencies]
 anyhow = "1.0"
 clap = "2.33"
-korg-syro = { git = "https://github.com/glindstedt/korg-syro-rs", branch = "master", version = "0.2" }
+korg-syro = "0.2.0"
 log = "0.4"
 ron = "0.6"
 serde = "1.0"
