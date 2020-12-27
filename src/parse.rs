@@ -4,7 +4,6 @@ use std::convert::TryInto;
 use anyhow::Context;
 use korg_syro::{pattern, pattern::num_enum::TryFromPrimitive};
 use log::{debug, trace};
-use pattern::Toggle;
 use serde::{Deserialize, Serialize};
 
 #[derive(Debug, PartialEq, Serialize, Deserialize)]
