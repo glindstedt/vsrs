@@ -49,6 +49,9 @@
 //!         // Erase the sample at index 1
 //!         1: Erase,
 //!     },
+//!     // sets the default part setting for the reverb function
+//!     // optional, on or off (off if not specified)
+//!     default_part_reverb: on,
 //!     // map of sequence patterns, valid keys are 0-9
 //!     patterns: {
 //!         0: (
@@ -59,13 +62,25 @@
 //!                     sample: 0,
 //!                     // sequence steps, 1 = on, 0 = off
 //!                     steps: [0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1],
-//!                     // part toggle options
+//!                     // part toggle options, all optional
 //!                     loop: on,
 //!                     reverb: off,
 //!                     reverse: on,
 //!                     motion: on,
 //!                     mute: off,
-//!                     // motion sequences for the part
+//!                     // part parameters, all optional
+//!                     level: 127,          // 0-127 (127)
+//!                     pan: 64,             // 1-127 (64=center) (64)
+//!                     speed: 64,           // semitone = 40-88 (64=center) (64), continuous = 129-255 (192=center)
+//!                     amp_eg_attack: 64,   // 0-127 (0)
+//!                     amp_eg_decay: 64,    // 0-127 (127)
+//!                     pitch_eg_int: 64,    // 1-127 (64=center) (64)
+//!                     pitch_eg_attack: 64, // 0-127 (0)
+//!                     pitch_eg_decay: 64,  // 0-127 (127)
+//!                     starting_point: 64,  // 0-127 (0)
+//!                     length: 64,          // 0-127 (127)
+//!                     hi_cut: 64,          // 0-127 (127)
+//!                     // motion sequences for the part, optional
 //!                     motion_sequences: (
 //!                         // valid values: 0-127
 //!                         level_start: [1, 8, 16, 24, 32, 40, 48, 56, 64, 72, 80, 88, 96, 104, 112, 120],
@@ -111,6 +126,7 @@
 //!     },
 //!     "1": "Erase"
 //!   },
+//!   "default_part_reverb": "on",
 //!   "patterns": {
 //!     "0": {
 //!       "parts": {
@@ -122,6 +138,17 @@
 //!           "reverb": "off",
 //!           "reverse": "on",
 //!           "mute": "off",
+//!           "level: 127,
+//!           "pan": 64,
+//!           "speed": 64,
+//!           "amp_eg_attack": 64,
+//!           "amp_eg_decay": 64,
+//!           "pitch_eg_int": 64,
+//!           "pitch_eg_attack": 64,
+//!           "pitch_eg_decay": 64,
+//!           "starting_point": 64,
+//!           "length": 64,
+//!           "hi_cut": 64,
 //!           "motion_sequences": {
 //!             "level_start": [ 1, 8, 16, 24, 32, 40, 48, 56, 64, 72, 80, 88, 96, 104, 112, 120 ],
 //!             "level_end": [ 1, 8, 16, 24, 32, 40, 48, 56, 64, 72, 80, 88, 96, 104, 112, 120 ],
