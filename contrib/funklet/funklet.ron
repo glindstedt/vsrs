@@ -1,0 +1,104 @@
+#![enable(implicit_some)]
+VolcaSample(
+    samples: {
+        // Kick
+        0: Sample((
+            file: "kick1.wav",
+        )),
+        1: Sample((
+            file: "kick2.wav",
+        )),
+        2: Sample((
+            file: "kick3.wav",
+        )),
+        3: Sample((
+            file: "kick4.wav",
+        )),
+        // Snare
+        4: Sample((
+            file: "snare1.wav",
+        )),
+        5: Sample((
+            file: "snare2.wav",
+        )),
+        6: Sample((
+            file: "snare3.wav",
+        )),
+        7: Sample((
+            file: "snare4.wav",
+        )),
+        // Alt Snare
+        8: Sample((
+            file: "asnare1.wav",
+        )),
+        9: Sample((
+            file: "asnare2.wav",
+        )),
+        10: Sample((
+            file: "asnare3.wav",
+        )),
+        11: Sample((
+            file: "asnare4.wav",
+        )),
+        // Corresponds to `+` sign in top row of funklet machine
+        12: Sample((
+            file: "foothat.wav",
+        )),
+        // Hat
+        13: Sample((
+            file: "hat1.wav",
+        )),
+        14: Sample((
+            file: "hat1.wav",
+        )),
+        15: Sample((
+            file: "hat3.wav",
+        )),
+        16: Sample((
+            file: "hat4.wav",
+        )),
+        // Open Hat
+        17: Sample((
+            file: "ohat1.wav",
+        )),
+        18: Sample((
+            file: "ohat1.wav",
+        )),
+        19: Sample((
+            file: "ohat3.wav",
+        )),
+        20: Sample((
+            file: "ohat4.wav",
+        )),
+        // Alt Hat
+        21: Sample((
+            file: "ahat1.wav",
+        )),
+        22: Sample((
+            file: "ahat1.wav",
+        )),
+        23: Sample((
+            file: "ahat3.wav",
+        )),
+        24: Sample((
+            file: "ahat4.wav",
+        )),
+        // Alt Open Hat
+        25: Sample((
+            file: "aohat1.wav",
+        )),
+        26: Sample((
+            file: "aohat1.wav",
+        )),
+        27: Sample((
+            file: "aohat3.wav",
+        )),
+        28: Sample((
+            file: "aohat4.wav",
+        )),
+        // Used in funklet machine for slapback reverb (by pressing `r`)
+        29: Sample((
+            file: "spring.wav",
+        )),
+    }
+)
