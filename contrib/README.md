@@ -1,6 +1,11 @@
 example sample packs
 ====================
 
+_**Disclaimer**: No guarantees are provided that these sample packs are free to
+use for derivative works, if you plan to release a work with any of these
+samples make sure to check with the source to see what restrictions may
+apply._
+
 Some examples of configurations for free sample packs found online. Download
 the packs and extract the samples into the respective directory, then run
 `vsrs` using the configuration file to generate the transfer stream.
