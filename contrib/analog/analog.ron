@@ -1,6 +1,5 @@
 #![enable(implicit_some)]
 VolcaSample(
-    default_compression: 14,
     samples: {
         0: Sample((
             file: "sample1501361799412",

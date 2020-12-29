@@ -22,9 +22,9 @@ while read entry; do
     # ignore .ron file
     if [[ ! $entry =~ ^.*.ron$ ]]; then
         cat <<EOT
-            ${index}: Sample((
-                file: "${entry}",
-            )),
+        ${index}: Sample((
+            file: "${entry}",
+        )),
 EOT
         index=$((index+1))
     fi
