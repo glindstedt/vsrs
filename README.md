@@ -7,11 +7,17 @@ Command line utility for generating sample streams for the Volca Sample
 
 Using a configuration file you configure which samples to use, which indexes to put them in,
 and whether samples should be compressed. You can also generate a stream with the factory
-preset samples by using a .alldata file. The tool outputs a .wav file which is ready to
+preset samples by using a .alldata file.
+
+The tool outputs a `.wav` file which is ready to
 be used for transferring the data to the Volca Sample. For details on the transfer process refer to
 [transferring syrostream to your volca sample](https://github.com/korginc/volcasample#6-transferring-syrostream-to-your-volca-sample)
 
 # Installing
+
+You need to have [Rust](https://www.rust-lang.org) installed, see
+[https://www.rust-lang.org/tools/install](https://www.rust-lang.org/tools/install)
+for installation instructions.
 
 ```shell
 cargo install vsrs
