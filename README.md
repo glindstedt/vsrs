@@ -33,6 +33,16 @@ Files can be found at
 vsrs reset all_sample_preset.alldata
 ```
 
+## Gotchas
+
+* It's good practice to wipe the sample memory with `all_sample_empty.alldata`
+  before loading new samples, otherwise there's a higher risk of getting a
+  memory full error.
+
+## Practical Examples
+
+Check out the [contrib](./contrib) directory for configuration file examples.
+
 # Configuration format
 
 Supported configuration formats:
