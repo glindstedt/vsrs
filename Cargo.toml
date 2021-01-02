@@ -4,14 +4,15 @@ description = "Command line utility for generating sample streams for the Volca 
 documentation = "https://docs.rs/vsrs"
 repository = "https://github.com/glindstedt/vsrs"
 license = "LGPL-3.0-or-later"
-version = "0.2.1"
+version = "0.2.2"
 authors = ["Gustaf Lindstedt <gustaflindstedt@protonmail.com>"]
 edition = "2018"
 keywords = ["audio", "cli"]
 categories = ["multimedia::audio", "command-line-utilities"]
 exclude = [
+    ".github",
     "contrib",
-    "*.ron"
+    "*.ron",
 ]
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
