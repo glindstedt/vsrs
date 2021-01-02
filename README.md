@@ -52,10 +52,11 @@ Check out the [contrib](./contrib) directory for configuration file examples.
 # Configuration format
 
 Supported configuration formats:
-* [Ron](https://github.com/ron-rs/ron)
-* JSON
+* [RON](#ron) (See [https://github.com/ron-rs/ron](https://github.com/ron-rs/ron))
+* [JSON](#json)
+* [YAML](#yaml)
 
-### Ron
+## RON
 
 ```rust
 // example.ron
@@ -136,9 +137,9 @@ VolcaSample(
 )
 ```
 
-### JSON
+## JSON
 
-See the [Ron](#ron) section for more details about the values
+See the [RON](#ron) section for more details about the values
 
 ```json
 {
@@ -196,6 +197,58 @@ See the [Ron](#ron) section for more details about the values
     }
   }
 }
+```
+
+## YAML
+
+See the [RON](#ron) section for more details about the values
+
+```yaml
+default_compression: 16
+samples:
+  0:
+    Sample:
+      file: kick.wav
+      compression: 8
+  1: Erase
+default_part_reverb: on
+patterns:
+  0:
+    parts:
+      0:
+        sample: 0
+        steps: [ 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1 ]
+        motion: off
+        loop: on
+        reverb: off
+        reverse: on
+        mute: off
+        level: 127
+        pan: 64
+        speed: 64
+        amp_eg_attack: 64
+        amp_eg_decay: 64
+        pitch_eg_int: 64
+        pitch_eg_attack: 64
+        pitch_eg_decay: 64
+        starting_point: 64
+        length: 64
+        hi_cut: 64
+        motion_sequences:
+          level_start: [ 1, 8, 16, 24, 32, 40, 48, 56, 64, 72, 80, 88, 96, 104, 112, 120 ]
+          level_end: [ 1, 8, 16, 24, 32, 40, 48, 56, 64, 72, 80, 88, 96, 104, 112, 120 ]
+          pan_start: [ 1, 8, 16, 24, 32, 40, 48, 56, 64, 72, 80, 88, 96, 104, 112, 120 ]
+          pan_end: [ 1, 8, 16, 24, 32, 40, 48, 56, 64, 72, 80, 88, 96, 104, 112, 120 ]
+          speed_start: [ 40, 43, 46, 49, 52, 55, 58, 61, 64, 67, 70, 73, 76, 79, 82, 85 ]
+          speed_end: [ 129, 137, 145, 153, 161, 169, 177, 185, 193, 201, 209, 217, 225, 233, 241, 249 ]
+          amp_eg_attack: [ 1, 8, 16, 24, 32, 40, 48, 56, 64, 72, 80, 88, 96, 104, 112, 120 ]
+          amp_eg_decay: [ 1, 8, 16, 24, 32, 40, 48, 56, 64, 72, 80, 88, 96, 104, 112, 120 ]
+          pitch_eg_int: [ 1, 8, 16, 24, 32, 40, 48, 56, 64, 72, 80, 88, 96, 104, 112, 120 ]
+          pitch_eg_attack: [ 1, 8, 16, 24, 32, 40, 48, 56, 64, 72, 80, 88, 96, 104, 112, 120 ]
+          pitch_eg_decay: [ 1, 8, 16, 24, 32, 40, 48, 56, 64, 72, 80, 88, 96, 104, 112, 120 ]
+          start_point: [ 1, 8, 16, 24, 32, 40, 48, 56, 64, 72, 80, 88, 96, 104, 112, 120 ]
+          length: [ 1, 8, 16, 24, 32, 40, 48, 56, 64, 72, 80, 88, 96, 104, 112, 120 ]
+          hi_cut: [ 1, 8, 16, 24, 32, 40, 48, 56, 64, 72, 80, 88, 96, 104, 112, 120 ]
 ```
 
 [docs.rs]: https://docs.rs/vsrs
