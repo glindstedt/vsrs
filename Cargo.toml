@@ -10,6 +10,7 @@ edition = "2018"
 keywords = ["audio", "cli"]
 categories = ["multimedia::audio", "command-line-utilities"]
 exclude = [
+    ".gitattributes",
     ".github",
     "contrib",
     "*.ron",
