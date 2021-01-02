@@ -200,11 +200,10 @@ fn main() -> anyhow::Result<()> {
         .get_matches();
 
     let log_level = match matches.occurrences_of("verbose") {
-        0 => log::LevelFilter::Error,
-        1 => log::LevelFilter::Warn,
-        2 => log::LevelFilter::Info,
-        3 => log::LevelFilter::Debug,
-        4 | _ => log::LevelFilter::Trace,
+        0 => log::LevelFilter::Warn,
+        1 => log::LevelFilter::Info,
+        2 => log::LevelFilter::Debug,
+        3 | _ => log::LevelFilter::Trace,
     };
     SimpleLogger::new().with_level(log_level).init().unwrap();
 
