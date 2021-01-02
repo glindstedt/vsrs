@@ -51,6 +51,7 @@ pub struct PartDef {
     pub mute: Option<ToggleDef>,
     pub level: Option<u8>,
     pub pan: Option<u8>,
+    pub speed: Option<u8>,
     pub amp_eg_attack: Option<u8>,
     pub amp_eg_decay: Option<u8>,
     pub pitch_eg_attack: Option<u8>,
@@ -157,6 +158,9 @@ pub fn parse_part_definition(
     }
     if let Some(pan) = part_definition.pan {
         part.pan(pan)?;
+    }
+    if let Some(speed) = part_definition.speed {
+        part.speed(speed)?;
     }
     if let Some(amp_eg_attack) = part_definition.amp_eg_attack {
         part.amp_eg_attack(amp_eg_attack)?;
