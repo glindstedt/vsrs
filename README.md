@@ -39,6 +39,9 @@ Files can be found at
 vsrs reset all_sample_preset.alldata
 ```
 
+To play the `.wav` file from the command line you can use `aplay` on Linux, or `afplay` on macOs.
+**WARNING: do not play over speakers, make sure you've set up audio correctly to play into the volca first!**
+
 ## Gotchas
 
 * It's good practice to wipe the sample memory with `all_sample_empty.alldata`
