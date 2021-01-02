@@ -25,6 +25,8 @@ fn get_data(file_name: &str) -> anyhow::Result<VolcaSample> {
             .with_context(|| format!("Cannot deserialize ron data in file '{}'", file_name))?,
         "json" => serde_json::from_str::<VolcaSample>(data_string.as_str())
             .with_context(|| format!("Cannot deserialize json data in file '{}'", file_name))?,
+        "yaml" => serde_yaml::from_str::<VolcaSample>(data_string.as_str())
+            .with_context(|| format!("Cannot deserialize yaml data in file '{}'", file_name))?,
         _ => return Err(anyhow::anyhow!("Unkonwn file format")),
     };
     info!("Loaded data from file '{}'", file_name);
