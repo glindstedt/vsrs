@@ -75,7 +75,14 @@ fn load(input_file: &str, output_file: &str) -> anyhow::Result<()> {
         for (index, sample_action) in samples {
             match sample_action {
                 SampleAction::Sample(sample) => {
-                    let file_path = input_dir.join(sample.file).into_boxed_path();
+                    let file_path = {
+                        let expanded = shellexpand::tilde(sample.file.as_str());
+                        let path = Path::new(expanded.as_ref());
+                        match path.is_absolute() {
+                            true => path.into(),
+                            false => input_dir.join(path).into_boxed_path(),
+                        }
+                    };
                     let (header, data) = read_sample(&file_path)?;
                     let compression = sample.compression.or(volca_sample.default_compression);
 
